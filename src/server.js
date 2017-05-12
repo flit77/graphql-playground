@@ -7,7 +7,7 @@ import koaBody from 'koa-bodyparser'; // koa-bodyparser@next
 import {graphqlKoa, graphiqlKoa} from 'graphql-server-koa';
 // acquaintance with schema is waiting ahead
 // db.js - file responsible for connecting to MongoDB
-// import schema from './data/schema'
+import schema from './data/schema'
 import './db'
 const app = new koa();
 const router = new koaRouter();
@@ -15,8 +15,8 @@ const PORT = 3000;
 // koaBody is needed just for POST.
 app.use(koaBody());
 // POST and GET requests will be redirected to GraphQL schema
-// router.post('/graphql', graphqlKoa({schema: schema}));
-// router.get('/graphql', graphqlKoa({schema: schema}));
+router.post('/graphql', graphqlKoa({schema: schema}));
+router.get('/graphql', graphqlKoa({schema: schema}));
 // Tool for test your queries: localhost:3000/graphiql
 router.get('/graphiql', graphiqlKoa({endpointURL: '/graphql'}));
 app.use(router.routes());
